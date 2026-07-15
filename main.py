@@ -25,18 +25,22 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 
 @app.get("/")
 def read_root():
+    """Returns basic info about this API."""
     return {"name": "Task API", "version": "1.0", "endpoints": ["/tasks"]}
 
 @app.get("/health")
 def health():
+    """Health check — confirms the server is running."""
     return {"status": "ok"}
 
 @app.get("/tasks")
 def get_tasks():
+    """Returns the full list of tasks."""
     return tasks
 
 @app.get("/tasks/{task_id}")
 def get_task(task_id: int):
+    """Returns a single task by id, or 404 if it doesn't exist."""
     for task in tasks:
         if task["id"] == task_id:
             return task
@@ -44,6 +48,7 @@ def get_task(task_id: int):
 
 @app.post("/tasks", status_code=201)
 def create_task(task: TaskCreate):
+    """Creates a new task. Requires a non-empty title."""
     if not task.title or not task.title.strip():
         raise HTTPException(status_code=400, detail="Title is required")
     new_id = max((t["id"] for t in tasks), default=0) + 1
@@ -53,6 +58,7 @@ def create_task(task: TaskCreate):
 
 @app.put("/tasks/{task_id}")
 def update_task(task_id: int, task: TaskUpdate):
+    """Updates a task's title and/or done status. 404 if the task doesn't exist."""
     if task.title is None and task.done is None:
         raise HTTPException(status_code=400, detail="Provide title and/or done")
     if task.title is not None and not task.title.strip():
@@ -68,6 +74,7 @@ def update_task(task_id: int, task: TaskUpdate):
 
 @app.delete("/tasks/{task_id}", status_code=204)
 def delete_task(task_id: int):
+    """Deletes a task by id. 404 if it doesn't exist."""
     for i, t in enumerate(tasks):
         if t["id"] == task_id:
             tasks.pop(i)
