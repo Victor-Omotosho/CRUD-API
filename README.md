@@ -43,7 +43,7 @@ content-type: application/json
 
 ## Swagger UI
 
-![Swagger UI showing all endpoints](swagger-screenshot.png)
+![Swagger UI showing all endpoints](swagger-screenshot.PNG)
 
 ## Notes
 
