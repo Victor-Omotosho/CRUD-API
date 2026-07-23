@@ -1,3 +1,24 @@
+# Task Management CRUD API (SQLite Persistence)
+
+A lightweight FastAPI REST service for managing tasks, backed by a persistent SQLite database.
+
+## 💡 Why SQLite?
+SQLite was chosen because it is zero-configuration, lightweight, and stores all data in a single local file (`tasks.db`). This allows full data persistence across application restarts without requiring a separate database server.
+
+## 📁 Database Details
+* **Database File:** `tasks.db` (stored in the project root)
+* **Schema:** `tasks` table containing:
+  * `id`: `INTEGER PRIMARY KEY AUTOINCREMENT`
+  * `title`: `TEXT NOT NULL`
+  * `done`: `INTEGER NOT NULL DEFAULT 0` (0 = False, 1 = True)
+
+## 🚀 How to Run the Project
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/Victor-Omotosho/CRUD-API.git](https://github.com/Victor-Omotosho/CRUD-API.git)
+   cd CRUD-API
+
 # Task API
 
 A small CRUD API for managing a to-do list, built with FastAPI. Supports creating, reading, updating, and deleting tasks. Data is stored in memory (resets when the server restarts).
